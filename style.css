@@ -1,8 +1,13 @@
+@font-face {
+    font-family: 'Futura-Bold';
+    src: url('./Futura-Bold.ttf');
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'gilroy';
+    font-family: 'gilroy', sans-serif;
 }
 
 html,
@@ -15,10 +20,39 @@ body {
     min-height: 100vh;
     position: relative;
     width: 100%;
+    padding: 0 1vw;
+    padding-top: 20vh;
 }
 
 #page1 h1 {
-    font-size: 10vw;
+    font-size: 15.8vw;
+    text-transform: uppercase;
     font-family: Futura-Bold;
-    font-weight: 600;
+    line-height: 14vw;
+    letter-spacing: -8px;
+}
+
+#video-container {
+    height: 100vh;
+    width: 100%;
+    margin-top: 1vw;
+    background-color: lightblue;
+    position: relative;
+}
+
+#video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#video-container #play {
+    padding: 3vw 2vw;
+    background-color: black;
+    color: #fff;
+    font-size: 2vw;
+    position: fixed;
+    text-transform: uppercase;
+    font-family: Futura-Bold;
+    border-radius: 50%;
 }
