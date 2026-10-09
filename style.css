@@ -10,6 +10,11 @@
     font-family: 'gilroy', sans-serif;
 }
 
+*::selection {
+    color: red;
+    background-color: blue;
+}
+
 html,
 body {
     width: 100%;
@@ -36,7 +41,7 @@ body {
     height: 100vh;
     width: 100%;
     margin-top: 1vw;
-    background-color: lightblue;
+    /*background-color: lightblue;*/
     position: relative;
 }
 
@@ -47,12 +52,14 @@ body {
 }
 
 #video-container #play {
-    padding: 3vw 2vw;
+    padding: 3vw 2.2vw;
     background-color: black;
     color: #fff;
-    font-size: 2vw;
+    font-size: 1.3vw;
     position: fixed;
     text-transform: uppercase;
     font-family: Futura-Bold;
     border-radius: 50%;
+    opacity: 0;
+    scale: 0;
 }
