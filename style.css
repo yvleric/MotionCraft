@@ -26,7 +26,7 @@ body {
     position: relative;
     width: 100%;
     padding: 0 1vw;
-    padding-top: 12vh;
+    padding-top: 20vh;
 }
 
 #page1 h1 {
@@ -40,8 +40,8 @@ body {
 #video-container {
     height: 100vh;
     width: 100%;
-    margin-top: 1vw;
     /*background-color: lightblue;*/
+    margin-top: 1vw;
     position: relative;
 }
 
@@ -77,11 +77,45 @@ body {
 #page2 .elem {
     height: 100%;
     width: 31%;
-    background-color: red;
+    /*background-color: red;*/
+    overflow: hidden;
 }
 
 #page2 .elem img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    scale: 1.1;
+}
+
+@media (max-width:600px) {
+
+    #page1 {
+        width: 100%;
+        padding: 0 3vw;
+        padding-top: 25vh;
+    }
+
+    #page1 h1 {
+        font-size: 15.5vw;
+        letter-spacing: -3px;
+    }
+
+    #video-container {
+        height: 25vh;
+        margin-top: 3vw;
+    }
+
+    #video-container #play {
+        padding: 7.5vw 5.2vw;
+        background-color: black;
+        color: #fff;
+        font-size: 4vw;
+        position: fixed;
+        text-transform: uppercase;
+        font-family: Futura-Bold;
+        border-radius: 50%;
+        opacity: 1;
+        scale: 1;
+    }
 }
