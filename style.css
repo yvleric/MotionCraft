@@ -79,6 +79,8 @@ body {
     width: 31%;
     /*background-color: red;*/
     overflow: hidden;
+    position: relative;
+    border-radius: 5px;
 }
 
 #page2 .elem img {
@@ -89,13 +91,24 @@ body {
 }
 
 .elem .dets {
-    height: 50px;
-    width: 80%;
+    height: 60px;
+    border-radius: 50px;
+    width: 70%;
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+}
+
+.elem .dets:hover {
+    height: 200px;
 }
 
 #page3 {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: lightblue;
 }
 
