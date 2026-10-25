@@ -5,16 +5,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotionCraft | Change The Course</title>
-    <meta name="description" content="MotionCraft - High-impact editorial motion and animation.">
+    <meta name="description"
+        content="MotionCraft - High-impact editorial motion, social enterprise, and artisan lifestyle shop.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Syne:wght@700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap"
         rel="stylesheet">
+    <!-- RemixIcon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Custom Cursor -->
+    <div id="cursor">
+        <span id="cursor-text"></span>
+    </div>
+
+    <!-- Search Modal Overlay (Outside #main for Locomotive Scroll compatibility) -->
+    <div id="search-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-backdrop" id="search-backdrop"></div>
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-input-wrapper">
+                    <i class="ri-search-line search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search products, hampers, cookbooks..."
+                        autocomplete="off">
+                    <button id="search-clear" aria-label="Clear search" class="icon-btn" style="display:none;"><i
+                            class="ri-close-line"></i></button>
+                </div>
+                <button id="search-close-btn" class="close-btn" aria-label="Close search">
+                    <span>ESC</span>
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <!-- Quick Category Filter Pills -->
+            <div class="search-categories">
+                <button class="cat-pill active" data-category="all">All Items</button>
+                <button class="cat-pill" data-category="bakery">Bakery & Pantry</button>
+                <button class="cat-pill" data-category="gifts">Holiday Hampers</button>
+                <button class="cat-pill" data-category="books">Books & Lifestyle</button>
+                <button class="cat-pill" data-category="care">Self Care</button>
+            </div>
+
+            <!-- Search Results Live Grid -->
+            <div class="search-results-section">
+                <div class="search-meta">
+                    <span id="results-count">Featured Catalog</span>
+                    <span class="keyboard-tip">Tip: Press <strong></strong> anytime to close</span>
+                </div>
+                <div id="search-results-grid" class="search-grid">
+                    <!-- Injected dynamically via script.js -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-Out Cart Drawer -->
+    <div id="cart-drawer-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-backdrop" id="cart-backdrop"></div>
+        <div class="cart-drawer">
+            <div class="cart-header">
+                <div class="cart-title-row">
+                    <h3>Your Bag</h3>
+                    <span id="cart-items-count-label">(2 items)</span>
+                </div>
+                <button id="cart-close-btn" class="close-btn" aria-label="Close cart">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+
+            <!-- Free shipping tier progress -->
+            <div class="shipping-tier">
+                <div class="shipping-info">
+                    <i class="ri-truck-line"></i>
+                    <span id="shipping-text">Add <strong>$15.00</strong> more for Free Shipping</span>
+                </div>
+                <div class="shipping-bar-bg">
+                    <div id="shipping-progress" class="shipping-bar-fill" style="width: 78%;"></div>
+                </div>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cart-items-container" class="cart-items-list">
+                <!-- Injected dynamically via script.js -->
+            </div>
+
+            <!-- Cart Drawer Footer -->
+            <div class="cart-footer">
+                <div class="cart-summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal" class="amount">$93.00</span>
+                </div>
+                <div class="cart-summary-row shipping-row">
+                    <span>Estimated Shipping</span>
+                    <span id="cart-shipping-val">Calculated at checkout</span>
+                </div>
+                <p class="impact-note"><i class="ri-heart-3-line"></i> 100% of profits fund direct crisis relief &
+                    employment pathways.</p>
+                <button id="checkout-btn" class="primary-btn">
+                    <span>Proceed to Checkout</span>
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+                <button id="continue-shopping" class="text-btn">Or continue shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Editorial Menu -->
+    <div id="fullscreen-menu" class="modal-overlay" aria-hidden="true">
+        <div class="menu-backdrop" id="menu-backdrop"></div>
+        <div class="menu-container">
+            <div class="menu-header">
+                <span class="menu-tag">MOTIONCRAFT &bull; EDITORIAL 2026</span>
+                <button id="menu-close-btn" class="close-btn" aria-label="Close menu">
+                    <span>CLOSE</span>
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="menu-content">
+                <div class="menu-nav-links">
+                    <a href="#page1" class="menu-link"
+                        data-img="https://cdn.sanity.io/images/w8f1ak3c/production/ee1c2e8894a4c47c4f4ce71b8973589f8a5045b2-902x1500.png/Rectangle%203.png?rect=1,0,900,1500&w=640&h=1067&fit=min&auto=format">
+                        <span class="link-num">01</span>
+                        <span class="link-text">Home Experience</span>
+                    </a>
+                    <a href="#page2" class="menu-link"
+                        data-img="https://cdn.sanity.io/images/w8f1ak3c/production/bb84b7106e978c37f5aa92c8d5781751b2e9d9f2-900x1500.png/Rectangle%202.png?w=640&h=1067&auto=format">
+                        <span class="link-num">02</span>
+                        <span class="link-text">Impact & Mission</span>
+                    </a>
+                    <a href="#page3" class="menu-link"
+                        data-img="https://cdn.sanity.io/images/w8f1ak3c/production/66d053ffcc85dc1f7883f68c54fb9c8b89cc157c-5000x5000.png/4.png?w=1024&h=1024&auto=format">
+                        <span class="link-num">03</span>
+                        <span class="link-text">Artisan Collection</span>
+                    </a>
+                    <a href="#marquee-section" class="menu-link"
+                        data-img="https://cdn.sanity.io/images/w8f1ak3c/production/d3151106849ff2494d66916cf554c68a0603444d-902x1500.png/Rectangle%20220.png?rect=1,0,900,1500&w=640&h=1067&fit=min&auto=format">
+                        <span class="link-num">04</span>
+                        <span class="link-text">Stories of Hope</span>
+                    </a>
+                    <a href="#footer" class="menu-link"
+                        data-img="https://cdn.sanity.io/images/w8f1ak3c/production/2148887a131b99321f6b64f1d4ad4fd21d708e62-2880x1920.png/Sonoma-Classic-Panettone-Gifts-For-Good-2026-A7R07656-DexterKim.png?rect=214,247,2370,1673&fp-x=0.48386739921304256&fp-y=0.6311392212079228&w=1024&h=723&fit=crop&crop=focalpoint&auto=format">
+                        <span class="link-num">05</span>
+                        <span class="link-text">Donate & Connect</span>
+                    </a>
+                </div>
+                <div class="menu-extra">
+                    <div class="menu-preview-img-container">
+                        <img id="menu-preview-img"
+                            src="https://cdn.sanity.io/images/w8f1ak3c/production/ee1c2e8894a4c47c4f4ce71b8973589f8a5045b2-902x1500.png/Rectangle%203.png?rect=1,0,900,1500&w=640&h=1067&fit=min&auto=format"
+                            alt="Navigation Preview">
+                    </div>
+                    <div class="menu-details">
+                        <h4>Change The Course</h4>
+                        <p>We create beautiful everyday luxuries that help vulnerable women walk tall again.</p>
+                        <div class="menu-socials">
+                            <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram <i
+                                    class="ri-arrow-right-up-line"></i></a>
+                            <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn <i
+                                    class="ri-arrow-right-up-line"></i></a>
+                            <a href="https://vimeo.com" target="_blank" rel="noreferrer">Vimeo <i
+                                    class="ri-arrow-right-up-line"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Quick View / Check Modal -->
+    <div id="quickview-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-backdrop" id="quickview-backdrop"></div>
+        <div class="quickview-container">
+            <button id="quickview-close-btn" class="close-btn" aria-label="Close modal">
+                <span>ESC</span>
+                <i class="ri-close-line"></i>
+            </button>
+            <div class="quickview-content">
+                <div class="quickview-img-col">
+                    <img id="qv-img" src="" alt="Product Detail">
+                </div>
+                <div class="quickview-details-col">
+                    <span id="qv-badge" class="product-badge">Limited Edition</span>
+                    <h2 id="qv-title">Product Name</h2>
+                    <span id="qv-price" class="qv-price-val">$0.00</span>
+                    <p id="qv-desc">Product description...</p>
+                    <div class="qv-action-row">
+                        <div class="cart-qty-ctrl">
+                            <button class="qty-btn" id="qv-qty-minus">−</button>
+                            <span id="qv-qty-val">1</span>
+                            <button class="qty-btn" id="qv-qty-plus">+</button>
+                        </div>
+                        <button id="qv-add-btn" class="primary-btn">
+                            <i class="ri-shopping-bag-3-line"></i>
+                            <span>Add to Bag</span>
+                        </button>
+                    </div>
+                    <p class="impact-note"><i class="ri-heart-3-line"></i> 100% of profits fund direct meals and
+                        employment pathways.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="ri-check-line toast-icon"></i>
+        <span id="toast-message">Added to your bag</span>
+    </div>
+
+    <!-- Fixed Header Navigation -->
     <div id="nav">
         <div id="nav-part1">
             <svg id="twogood" width="106" height="83" viewBox="0 0 106 83" fill="none"
@@ -77,73 +281,235 @@
         </div>
         <div id="nav-part2">
             <div id="links">
-                <a href="#">Shop</a>
-                <a href="#">Catering</a>
-                <a href="#">Donate</a>
+                <a href="#page3" class="nav-anchor">Shop</a>
+                <a href="#page2" class="nav-anchor">Impact</a>
+                <a href="#marquee-section" class="nav-anchor">Stories</a>
+                <a href="#footer" class="nav-anchor">Donate</a>
             </div>
             <div id="icons">
-                <i class="ri-menu-fill"></i>
-                <i class="ri-shopping-cart-2-line"></i>
+                <button id="search-btn" class="nav-icon-btn" aria-label="Search" title="Search products (Ctrl+K)">
+                    <i class="ri-search-line"></i>
+                </button>
+                <button id="cart-btn" class="nav-icon-btn" aria-label="Bag" title="View Bag">
+                    <i class="ri-shopping-bag-3-line"></i>
+                    <span id="cart-badge">2</span>
+                </button>
+                <button id="menu-btn" class="nav-icon-btn" aria-label="Menu" title="Menu">
+                    <i class="ri-menu-fill"></i>
+                </button>
             </div>
         </div>
     </div>
-    <div id="cursor"></div>
-    <div id="main">
+
+    <!-- MAIN SCROLLER (LOCOMOTIVE SCROLL) -->
+    <div id="main" data-scroll-container>
+        <!-- Page 1: Hero Video -->
         <div id="page1">
             <h1>Change</h1>
             <h1>the course</h1>
             <div id="video-container">
                 <div id="play">PLAY</div>
-                <video autoplay loop muted src="./video.mp4"></video>
+                <video autoplay loop muted playsinline src="./video.mp4"></video>
+                <div class="video-overlay-badge">
+                    <button id="video-sound-toggle" aria-label="Toggle sound">
+                        <i class="ri-volume-mute-line"></i>
+                    </button>
+                </div>
             </div>
         </div>
+
+        <!-- Page 2: Editorial Pillars -->
         <div id="page2">
             <div id="elem1" class="elem">
                 <img data-scroll data-scroll-speed="1"
                     src="https://cdn.sanity.io/images/w8f1ak3c/production/ee1c2e8894a4c47c4f4ce71b8973589f8a5045b2-902x1500.png/Rectangle%203.png?rect=1,0,900,1500&w=640&h=1067&fit=min&auto=format"
-                    alt="">
-                <div data-scroll data-scroll-speed="-2" class="dets"></div>
-
+                    alt="Change Through Purpose">
+                <div data-scroll data-scroll-speed="-2" class="dets">
+                    <span class="det-num">01</span>
+                    <span class="det-text">NOURISH &amp; HEAL</span>
+                    <i class="ri-arrow-right-up-line det-arrow"></i>
+                </div>
             </div>
             <div id="elem2" class="elem">
                 <img data-scroll data-scroll-speed="1"
                     src="https://cdn.sanity.io/images/w8f1ak3c/production/bb84b7106e978c37f5aa92c8d5781751b2e9d9f2-900x1500.png/Rectangle%202.png?w=640&h=1067&auto=format"
-                    alt="">
-                <div data-scroll data-scroll-speed="-2" class="dets"></div>
-
+                    alt="Artisan Craftsmanship">
+                <div data-scroll data-scroll-speed="-2" class="dets">
+                    <span class="det-num">02</span>
+                    <span class="det-text">EMPOWER WOMEN</span>
+                    <i class="ri-arrow-right-up-line det-arrow"></i>
+                </div>
             </div>
             <div id="elem3" class="elem">
                 <img data-scroll data-scroll-speed="1"
                     src="https://cdn.sanity.io/images/w8f1ak3c/production/d3151106849ff2494d66916cf554c68a0603444d-902x1500.png/Rectangle%20220.png?rect=1,0,900,1500&w=640&h=1067&fit=min&auto=format"
-                    alt="">
-                <div data-scroll data-scroll-speed="-2" class="dets"></div>
+                    alt="Social Enterprise">
+                <div data-scroll data-scroll-speed="-2" class="dets">
+                    <span class="det-num">03</span>
+                    <span class="det-text">100% REINVESTED</span>
+                    <i class="ri-arrow-right-up-line det-arrow"></i>
+                </div>
             </div>
-
         </div>
+
+        <!-- Marquee / Ticker Section -->
+        <div id="marquee-section" data-scroll data-scroll-speed="0.5">
+            <div class="marquee-track">
+                <span>CHANGE THE COURSE &bull; 100,000+ NOURISHING MEALS &bull; EMPLOYMENT PATHWAYS &bull; ARTISAN GOODS
+                    &bull; 100% NOT-FOR-PROFIT &bull; LOVE &amp; RESPECT &bull;&nbsp;</span>
+                <span>CHANGE THE COURSE &bull; 100,000+ NOURISHING MEALS &bull; EMPLOYMENT PATHWAYS &bull; ARTISAN GOODS
+                    &bull; 100% NOT-FOR-PROFIT &bull; LOVE &amp; RESPECT &bull;&nbsp;</span>
+            </div>
+        </div>
+
+        <!-- Page 3: Products Grid Showcase (Matching Two Good Co Image 2 reference) -->
         <div id="page3">
-            <div class="child" id="child1">
-                <img src="https://cdn.sanity.io/images/w8f1ak3c/production/66d053ffcc85dc1f7883f68c54fb9c8b89cc157c-5000x5000.png/4.png?w=1024&h=1024&auto=format"
-                    alt="">
+            <div class="child" id="child1" data-id="p1" data-title="MESSINA X TWO GOOD INSIDE SCOOP CRACKER"
+                data-price="16.00"
+                data-img="https://cdn.sanity.io/images/w8f1ak3c/production/66d053ffcc85dc1f7883f68c54fb9c8b89cc157c-5000x5000.png/4.png?w=1024&h=1024&auto=format"
+                data-desc="Limited edition festive Christmas cracker filled with Messina treats, vouchers and holiday joy."
+                data-badge="Holiday Cracker">
+                <div class="product-media-minimal">
+                    <img src="https://cdn.sanity.io/images/w8f1ak3c/production/66d053ffcc85dc1f7883f68c54fb9c8b89cc157c-5000x5000.png/4.png?w=1024&h=1024&auto=format"
+                        alt="MESSINA X TWO GOOD INSIDE SCOOP CRACKER">
+                    <button class="quick-add-pill" aria-label="Add to Bag">
+                        <i class="ri-add-line"></i>
+                        <span>Add to Bag</span>
+                    </button>
+                </div>
+                <div class="product-info-minimal">
+                    <h3 class="product-title-minimal">MESSINA X TWO GOOD INSIDE SCOOP CRACKER</h3>
+                    <span class="product-price-minimal">$16</span>
+                </div>
             </div>
-            <div class="child" id="child2">
-                <img src="https://cdn.sanity.io/images/w8f1ak3c/production/2148887a131b99321f6b64f1d4ad4fd21d708e62-2880x1920.png/Sonoma-Classic-Panettone-Gifts-For-Good-2026-A7R07656-DexterKim.png?rect=214,247,2370,1673&fp-x=0.48386739921304256&fp-y=0.6311392212079228&w=1024&h=723&fit=crop&crop=focalpoint&auto=format"
-                    alt="">
 
+            <div class="child" id="child2" data-id="p2" data-title="SONOMA X TWO GOOD CLASSIC PANETTONE"
+                data-price="65.00"
+                data-img="https://cdn.sanity.io/images/w8f1ak3c/production/2148887a131b99321f6b64f1d4ad4fd21d708e62-2880x1920.png/Sonoma-Classic-Panettone-Gifts-For-Good-2026-A7R07656-DexterKim.png?rect=214,247,2370,1673&fp-x=0.48386739921304256&fp-y=0.6311392212079228&w=1024&h=723&fit=crop&crop=focalpoint&auto=format"
+                data-desc="Naturally fermented slow sourdough panettone crafted with Australian wild honey and candied orange."
+                data-badge="Artisan Bakery">
+                <div class="product-media-minimal">
+                    <img src="https://cdn.sanity.io/images/w8f1ak3c/production/2148887a131b99321f6b64f1d4ad4fd21d708e62-2880x1920.png/Sonoma-Classic-Panettone-Gifts-For-Good-2026-A7R07656-DexterKim.png?rect=214,247,2370,1673&fp-x=0.48386739921304256&fp-y=0.6311392212079228&w=1024&h=723&fit=crop&crop=focalpoint&auto=format"
+                        alt="SONOMA X TWO GOOD CLASSIC PANETTONE">
+                    <button class="quick-add-pill" aria-label="Add to Bag">
+                        <i class="ri-add-line"></i>
+                        <span>Add to Bag</span>
+                    </button>
+                </div>
+                <div class="product-info-minimal">
+                    <h3 class="product-title-minimal">SONOMA X TWO GOOD CLASSIC PANETTONE</h3>
+                    <span class="product-price-minimal">$65</span>
+                </div>
             </div>
-            <div class="child" id="child3">
-                <img src="https://cdn.sanity.io/images/w8f1ak3c/production/6be73be625095d1b5600317bcb313e563dc775be-5000x5000.png/Good-Feels-Bauble-Gifts-For-Good-2026-A7R07722-DexterKim.png?w=1024&h=1024&auto=format"
-                    alt="">
 
+            <div class="child" id="child3" data-id="p3" data-title="GOOD FEELS BAUBLE" data-price="12.00"
+                data-img="https://cdn.sanity.io/images/w8f1ak3c/production/6be73be625095d1b5600317bcb313e563dc775be-5000x5000.png/Good-Feels-Bauble-Gifts-For-Good-2026-A7R07722-DexterKim.png?w=1024&h=1024&auto=format"
+                data-desc="Good Feels decorative ceramic bauble with empowering thank-you card and botanical body treat."
+                data-badge="Holiday Gift">
+                <div class="product-media-minimal">
+                    <img src="https://cdn.sanity.io/images/w8f1ak3c/production/6be73be625095d1b5600317bcb313e563dc775be-5000x5000.png/Good-Feels-Bauble-Gifts-For-Good-2026-A7R07722-DexterKim.png?w=1024&h=1024&auto=format"
+                        alt="GOOD FEELS BAUBLE">
+                    <button class="quick-add-pill" aria-label="Add to Bag">
+                        <i class="ri-add-line"></i>
+                        <span>Add to Bag</span>
+                    </button>
+                </div>
+                <div class="product-info-minimal">
+                    <h3 class="product-title-minimal">GOOD FEELS BAUBLE</h3>
+                    <span class="product-price-minimal">$12</span>
+                </div>
             </div>
-            <div class="child" id="child4">
-                <img src="https://cdn.sanity.io/images/w8f1ak3c/production/16a66201cadb52292ce1a413471fdd8ab3d06804-2880x1920.png/Messina-Gingerbread-Cookie-Pie-Kit-Gifts-For-Good-2026-A7R07686-DexterKim.png?rect=43,0,2747,1920&fp-x=0.49194224267734876&fp-y=0.4547022058823529&w=1024&h=716&fit=crop&crop=focalpoint&auto=format"
-                    alt="">
 
+            <div class="child" id="child4" data-id="p4" data-title="MESSINA GINGERBREAD COOKIE PIE" data-price="42.00"
+                data-img="https://cdn.sanity.io/images/w8f1ak3c/production/16a66201cadb52292ce1a413471fdd8ab3d06804-2880x1920.png/Messina-Gingerbread-Cookie-Pie-Kit-Gifts-For-Good-2026-A7R07686-DexterKim.png?rect=43,0,2747,1920&fp-x=0.49194224267734876&fp-y=0.4547022058823529&w=1024&h=716&fit=crop&crop=focalpoint&auto=format"
+                data-desc="Bake-at-home Messina deep dish ginger cookie pie kit with rich molten caramel centre."
+                data-badge="Collaboration">
+                <div class="product-media-minimal">
+                    <img src="https://cdn.sanity.io/images/w8f1ak3c/production/16a66201cadb52292ce1a413471fdd8ab3d06804-2880x1920.png/Messina-Gingerbread-Cookie-Pie-Kit-Gifts-For-Good-2026-A7R07686-DexterKim.png?rect=43,0,2747,1920&fp-x=0.49194224267734876&fp-y=0.4547022058823529&w=1024&h=716&fit=crop&crop=focalpoint&auto=format"
+                        alt="MESSINA GINGERBREAD COOKIE PIE">
+                    <button class="quick-add-pill" aria-label="Add to Bag">
+                        <i class="ri-add-line"></i>
+                        <span>Add to Bag</span>
+                    </button>
+                </div>
+                <div class="product-info-minimal">
+                    <h3 class="product-title-minimal">MESSINA GINGERBREAD COOKIE PIE</h3>
+                    <span class="product-price-minimal">$42</span>
+                </div>
             </div>
         </div>
+
+        <!-- Impact Numbers Section -->
+        <div id="impact-stats">
+            <div class="stat-box">
+                <span class="stat-number">125K+</span>
+                <span class="stat-title">Nutritious Meals Donated</span>
+                <p>Fresh, chef-designed meals served to emergency shelters.</p>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">480+</span>
+                <span class="stat-title">Women In Work Pathways</span>
+                <p>Paid training and ongoing mentorship to build financial independence.</p>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">100%</span>
+                <span class="stat-title">Reinvested in Humanity</span>
+                <p>Every dollar generated goes back into sustaining transformational good.</p>
+            </div>
+        </div>
+
+        <!-- Page 4: Editorial Footer -->
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="footer-cta">
+                    <span class="pill-badge">JOIN THE MOVEMENT</span>
+                    <h2>Be Part of Changing The Course.</h2>
+                    <p>Subscribe for seasonal releases, chef recipes, and transparent quarterly social impact reports.
+                    </p>
+                    <form id="newsletter-form" class="newsletter-box">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+                        <button type="submit" class="submit-btn">Subscribe <i class="ri-arrow-right-line"></i></button>
+                    </form>
+                    <div id="newsletter-status" class="newsletter-status"></div>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col">
+                        <h4>Explore</h4>
+                        <a href="#page3" class="footer-link">The Shop</a>
+                        <a href="#page2" class="footer-link">Social Impact</a>
+                        <a href="#marquee-section" class="footer-link">Catering</a>
+                        <a href="#page1" class="footer-link">Cookbooks &amp; Tales</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Social</h4>
+                        <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+                        <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+                        <a href="https://spotify.com" target="_blank" rel="noreferrer">Spotify Playlist</a>
+                        <a href="https://vimeo.com" target="_blank" rel="noreferrer">Vimeo Documentaries</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Certifications</h4>
+                        <p class="cert-text">Certified B Corporation &bull; Social Traders Certified &bull; DGR Item 1
+                            Endorsed Charity</p>
+                        <button id="back-to-top" class="back-to-top-btn">
+                            <span>Back to Top</span>
+                            <i class="ri-arrow-up-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MotionCraft Social Enterprise. Handcrafted with compassion and editorial motion.</p>
+                <div class="footer-terms">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms &amp; Conditions</a>
+                    <a href="#">Whistleblower Policy</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
-
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
         integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
